@@ -21,10 +21,11 @@ Route::get('/string1', function() {
     return('Welcome to the test of a string return');
 });
 
-Route::get('/string3', function() {
-    return('This is a test to return string 2');
-});
+Route::get('animeposts', 'AnimePostController@index')->name('animeposts.index');
+Route::get('animeposts/create', 'AnimePostController@create')->name('animeposts.create');
+Route::post('animeposts', 'AnimePostController@store')->name('animeposts.store');
+Route::get('animeposts/{id}', 'AnimePostController@show')->name('animeposts.show');
 
-Route::get('/home', function() {
-    return('What are you doing here?');
-});
+Auth::routes();
+
+Route::get('/home', 'AnimePostController@index')->name('home');
