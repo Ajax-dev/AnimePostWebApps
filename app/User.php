@@ -47,4 +47,18 @@ class User extends Authenticatable
     public function comments() {
         return $this -> hasMany('App\Comment');
     }
+
+    /**
+     * Get the user's image.
+     */
+    public function image() {
+        return $this->morphOne('App\Image', 'imageable');
+    }
+
+    /**
+     * Get the user's roles
+     */
+    public function roles() {
+        return $this->belongsToMany('App\Role', 'role_user');
+    }
 }

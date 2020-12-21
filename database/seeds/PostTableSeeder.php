@@ -29,9 +29,8 @@ class PostTableSeeder extends Seeder
         //Use factory to generate 30 examples
         factory(App\Post::class, 30) -> create() -> each(function ($post) {
             $post -> save();
-            $post -> tags() -> attach(rand(1,100));
-            $post -> tags() -> attach(rand(1,100));
-            $post -> tags() -> attach(rand(1,100));
+            $post -> tags() -> attach(rand(1,50));
+            $post -> tags() -> attach(rand(51,100));
         });
     }
 }
