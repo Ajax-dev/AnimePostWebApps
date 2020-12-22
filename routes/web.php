@@ -13,19 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Route::get('/string1', function() {
     return('Welcome to the test of a string return');
 });
 
-Route::get('animeposts', 'AnimePostController@index')->name('animeposts.index');
-Route::get('animeposts/create', 'AnimePostController@create')->name('animeposts.create');
-Route::post('animeposts', 'AnimePostController@store')->name('animeposts.store');
-Route::get('animeposts/{id}', 'AnimePostController@show')->name('animeposts.show');
+Route::get('posts', 'PostController@index')->name('posts.index');
+Route::get('posts/create', 'PostController@create')->name('posts.create')->middleware('auth');
+Route::post('posts', 'PostController@store')->name('posts.store');
+Route::get('posts/{id}', 'PostController@show')->name('posts.show');
 
 Auth::routes();
 
-Route::get('/home', 'AnimePostController@index')->name('home');
+Route::get('/', 'PostController@index')->name('home');

@@ -1,4 +1,3 @@
-<link type="text/css" rel="stylesheet" href="{{ URL::asset('main.css')}}">
 @extends('layouts.app')
 
 @section('title', 'Create Anime Post')
@@ -10,7 +9,7 @@
     <div class="card-header">
     </div>
     <div class="card-body">
-        <form method="POST" action="{{ route('animeposts.store') }}">
+        <form method="POST" action="{{ route('posts.store') }}">
             @csrf
             <p> Name: <input type="text" name="name"
                              value="{{ old('name') }}"></p>
@@ -23,7 +22,7 @@
             <p> Status:  <input type="text" name="status"
                                    value="{{ old('status') }}"></p>
             <input type="submit" value="Submit">
-            <a href="{{ route('animeposts.index') }}" > Cancel </a>
+            <a href="{{ route('posts.index') }}" > Cancel </a>
         </form>
     </div>
     </body>

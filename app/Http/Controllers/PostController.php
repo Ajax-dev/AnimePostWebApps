@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 
-class AnimePostController extends Controller
+class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class AnimePostController extends Controller
      */
     public function index()
     {
-        $animePosts = Post::orderBy('created_at', 'desc')->paginate(5);
-        return view('animeposts.index', ['animeposts' => $animePosts]);
+        $posts = Post::orderBy('created_at', 'desc')->paginate(9);
+        return view('posts.index', ['posts' => $posts]);
     }
 
     /**
@@ -25,7 +25,7 @@ class AnimePostController extends Controller
      */
     public function create()
     {
-        return view('animeposts.create');
+        return view('posts.create');
     }
 
     /**
@@ -52,7 +52,7 @@ class AnimePostController extends Controller
         $a->save();
 
         session()->flash('message', 'The Anime Post was created.');
-        return redirect()->route('animeposts.index');
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -63,8 +63,8 @@ class AnimePostController extends Controller
      */
     public function show($id)
     {
-        $animepost = Post::findOrFail($id);
-        return view('animeposts.show', ['animeposts' => $animepost]);
+        $posts = Post::findOrFail($id);
+        return view('posts.show', ['posts' => $posts]);
     }
 
     /**
