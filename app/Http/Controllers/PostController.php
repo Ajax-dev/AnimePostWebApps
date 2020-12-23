@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(9);
+        $posts = Post::orderBy('created_at', 'desc')->paginate(3);
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -63,8 +63,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $posts = Post::findOrFail($id);
-        return view('posts.show', ['posts' => $posts]);
+        $post = Post::findOrFail($id);
+        return view('posts.show', ['post' => $post]);
     }
 
     /**

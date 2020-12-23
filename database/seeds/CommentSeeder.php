@@ -12,6 +12,6 @@ class CommentSeeder extends Seeder
     public function run()
     {
         //Generate a random 70 comments
-        factory(App\Comment::class, 100) -> create();
+        factory(App\Comment::class, 20) -> create();
     }
 }

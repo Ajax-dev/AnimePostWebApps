@@ -19,6 +19,6 @@ class TagTableSeeder extends Seeder
         $AniTag -> save();
 
         //Use factory to generate 100 examples
-        factory(App\Tag::class, 100) -> create();
+        factory(App\Tag::class, 30) -> create();
     }
 }

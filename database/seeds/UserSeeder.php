@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         //Generate 7 users
-        factory(App\User::class, 7)->create()->each(function ($role) {
+        factory(App\User::class, 3)->create()->each(function ($role) {
             $role->save();
             $role->roles()->attach(rand(1,4));
         });

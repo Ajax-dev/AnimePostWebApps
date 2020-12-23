@@ -49,7 +49,7 @@ class CommentController extends Controller
         $a->save();
 
         session()->flash('message', 'Comment was successfully created!');
-        return redirect()->route('animeposts.show', $posts->id);
+        return redirect()->route('posts.show', $posts->id);
     }
 
     /**
@@ -71,9 +71,9 @@ class CommentController extends Controller
      */
     public function edit($id)
     {
-        $usercomment = Comment::findOrFail($id);
+        $comment = Comment::findOrFail($id);
 
-        return view('comments.edit')->with('comment', $usercomment);
+        return view('comments.edit')->with('comment', $comment);
     }
 
     /**
@@ -88,11 +88,11 @@ class CommentController extends Controller
         $validatedData = $request -> validate([
             'content' => 'required|max:255'
         ]);
-        $usercomment = Comment::findOrFail($id);
-        $usercomment->content = $validatedData['content'];
-        $usercomment->save();
+        $comment = Comment::findOrFail($id);
+        $comment->content = $validatedData['content'];
+        $comment->save();
 
-        return redirect()->route('animeposts.show', $usercomment->post_id);
+        return redirect()->route('posts.show', $comment->post_id);
     }
 
     /**

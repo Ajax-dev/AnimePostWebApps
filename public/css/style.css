@@ -2,8 +2,6 @@ html, body {
 
     background-color: #fff;
 
-    color: #1c1c1c;
-
     font-family: 'Roboto', sans-serif;
 
     font-weight: 200;
@@ -24,6 +22,10 @@ body {
 
     background-size: 100% 100%;
 
+}
+
+.card-footer {
+    border-top: 0px;
 }
 
 .card-body {
@@ -64,6 +66,8 @@ body {
 
     justify-content: left;
 
+    transform: translate(0%, -30%);
+
     font-size: 26px;
 
     align-content: flex-start;
@@ -76,8 +80,6 @@ body {
     justify-content: left;
 
     font-size: 18px;
-
-    align-content: flex-start;
 }
 
 .ul {
@@ -95,6 +97,7 @@ body {
 .container {
     display: -webkit-flex;
     display: flex;
+    align-content: flex-end;
     -webkit-flex-flow: row wrap;
     flex-flow: row wrap;
     background-color: #e57373;
@@ -107,19 +110,43 @@ li {
 
 .card-header {
 
-    font-size: 20px;
+    color: #3d62f5;
+
+    font-size: 30px;
 
     letter-spacing: .1rem;
 
     align-items: center;
 
+    justify-content: space-evenly;
+
     display: flex;
 
     position: absolute;
 
-    left: 50%;
+    left: 25%;
 
-    transform: translate(-50%);
+    top: 18px;
+
+}
+
+.page-header {
+
+    color: #3d62f5;
+
+    font-size: 30px;
+
+    letter-spacing: .1rem;
+
+    align-items: center;
+
+    justify-content: space-evenly;
+
+    display: flex;
+
+    left: 42%;
+
+    position: absolute;
 
     top: 18px;
 
