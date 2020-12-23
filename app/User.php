@@ -40,7 +40,7 @@ class User extends Authenticatable
     /**
      * Relationships between the User and their respective posts and comments
      */
-    public function animePosts() {
+    public function posts() {
         return $this -> hasMany('App\AnimePost');
     }
 
