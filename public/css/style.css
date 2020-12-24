@@ -94,6 +94,16 @@ body {
     display: block;
 }
 
+.img {
+    border-radius: 8px;
+    padding: 5px;
+    width: 150px;
+}
+
+.no-img {
+    border: 1px solid green;
+}
+
 .container {
     display: -webkit-flex;
     display: flex;

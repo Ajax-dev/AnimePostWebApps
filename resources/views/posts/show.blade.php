@@ -12,6 +12,15 @@
 
     <div class="card-body">
         <ul>
+            <li>
+                @isset( $post -> image)
+                    <img src="{{ $post -> image -> url }}" alt="Image from user {{ $post -> user }}">
+                @else
+                    <div class="no-img">
+                        This user has not posted an image
+                    </div>
+                @endisset
+            </li>
             <li> Name: {{ $post-> name }} </li>
             <li> Genre: {{ $post-> genre }} </li>
             <li> Episodes: {{ $post-> episodes}} </li>
@@ -55,7 +64,7 @@
                 <input type="hidden" name="post_id" value="{{ $post->id }}">
                 <input type="submit" value="Submit">
             </form>
-            <a href="{{ route('posts.index') }}" > Back </a>
+            <a href="{{ route('posts.index') }}" > Home </a>
         </div>
     </div>
     </body>

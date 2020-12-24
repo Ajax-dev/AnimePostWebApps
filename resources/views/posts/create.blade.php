@@ -11,6 +11,9 @@
     <div class="card-body">
         <form method="POST" action="{{ route('posts.store') }}">
             @csrf
+            <p> Image: <input type="file" name="name" id="image"
+                              value="{{ old('image') }}"
+                              width="48" height="48"></p>
             <p> Name: <input type="text" name="name"
                              value="{{ old('name') }}"></p>
             <p> Genre:  <input type="text" name="genre"

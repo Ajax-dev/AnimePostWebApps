@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Image;
 
 class PostController extends Controller
 {
@@ -37,19 +38,23 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request -> validate([
+            'image' => 'nullable|image',
             'name' => 'required|max:100',
             'genre' => '',
             'episodes' => 'required|numeric',
-            'released' => 'required|date',
+            'released' => 'required|numeric',
             'status' => 'required|max:30',
         ]);
         $a = new Post;
+        $a->imageable = $validatedData['image'];
         $a->name = $validatedData['name'];
         $a->genre = $validatedData['genre'];
         $a->episodes = $validatedData['episodes'];
         $a->released = $validatedData['released'];
         $a->status = $validatedData['status'];
+        $a->user_id = auth()->id();
         $a->save();
+        $b->save();
 
         session()->flash('message', 'The Anime Post was created.');
         return redirect()->route('posts.index');
