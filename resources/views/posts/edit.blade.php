@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Create Anime Post')
+@section('title', 'Edit Post')
 
 @section('content')
     <head>
@@ -9,15 +9,13 @@
     <div class="card-header">
     </div>
     <div class="card-body">
-        <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('posts.update', ['id' => $post-> id]) }}">
+            {{--@csrf adds security and middleware to html form --}}
             @csrf
-            <div class="form-group row">
-                <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('Image') }}</label>
-
-                <div class="col-md-6">
-                    <input id="image" type="file" class="form-control" name="image" value="{{ old('image') }}">
-                </div>
-            </div>
+            @method('PUT')
+            <p> Image: <input type="file" name="name" id="image"
+                              value="{{ old('image') }}"
+                              width="48" height="48"></p>
             <div class="form-group row">
                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
@@ -35,7 +33,7 @@
                 <label for="genre" class="col-md-4 col-form-label text-md-right">{{ __('Genre') }}</label>
 
                 <div class="col-md-6">
-                    <input id="genre" type="text" class="form-control @error('genre') is-invalid @enderror" name="genre" value="{{ old('genre') }}" required autocomplete="genre" autofocus>
+                    <input id="name" type="text" class="form-control @error('genre') is-invalid @enderror" name="genre" value="{{ old('genre') }}" required autocomplete="genre" autofocus>
 
                     @error('genre')
                     <span class="invalid-feedback" role="alert">
@@ -86,9 +84,6 @@
             <input type="submit" value="Submit">
             <a href="{{ route('posts.index') }}" > Cancel </a>
         </form>
-{{--        <p> Image: <input type="file" name="image" id="image"--}}
-{{--                          value="{{ old('image') }}"--}}
-{{--                          width="48" height="48"></p>--}}
     </div>
     </body>
 @endsection

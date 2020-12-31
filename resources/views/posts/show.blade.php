@@ -16,7 +16,7 @@
         <ul>
             <li>
                 @isset( $post -> image)
-                    <img src="{{ $post -> image -> url }}" alt="Image from user {{ $post -> user }}">
+                    <img src="{{ $post -> image -> url }}" alt="Image from user {{ $post -> user -> name }}" height="400">
                 @else
                     <div class="no-img">
                         This user has not posted an image
@@ -43,17 +43,16 @@
         <div class="card-subtitle2"> Comments: </div>
             <div id ="root">
 {{--                <ul>--}}
-{{--                    <li v-for="comment in comments">@{{ comment.content }} Posted by: @{{ comment.user_id }}</li>--}}
+{{--                    <li v-for="comment in comments">@{{ comment.content }} Posted by: @{{ comment.user }}</li>--}}
 
 {{--                            @if(Auth::user())--}}
 {{--                                @if ($comment->user->id == Auth::user()->id)--}}
 {{--                                    <a href="{{ route('comments.edit', ['id' => $comment->id]) }}" > Edit Comment </a>--}}
 {{--                                @endif--}}
 {{--                            @endif--}}
-{{--                        @endforeach--}}
 
 {{--                </ul>--}}
-                <li>
+{{--                <li>--}}
                 @foreach ($post -> comments as $comment)
                     <p> {{ $comment-> content }}
 {{--                    Check if user is logged in before allowing edit--}}
@@ -65,21 +64,18 @@
                         <br>
                         <i>
                          Posted by: {{ $comment->user-> name }}
-                            (Role:
-                            @foreach($post -> user -> roles as $role)
-                                {{ $role -> role }}
-                            @endforeach
-                            )
                         </i>
                     </p>
                     <br>
                 @endforeach
                  </li>
                 @csrf
-                <p>New Comment:
-                    <input type="text" id="input" v-model="newComment">
-                </p>
-                <button @click="addComment">Submit</button>
+                @if( Auth::user())
+                    <p>New Comment:
+                        <input type="text" id="input" v-model="newComment">
+                    </p>
+                    <button @click="addComment" onClick="window.location.reload();">Submit</button>
+                @endif
             </div>
             <li>
 {{--                <form method="POST" action="{{ route('comments.store') }}">--}}
@@ -111,7 +107,7 @@
                 },
                 methods : {
                     addComment: function() {
-                        axios.post("{{ route('api.comments.store', ['post_id' => $post -> id, 'user_id' => Auth::user()->id]) }}", {
+                        axios.post("{{ route('api.comments.store', ['post_id' => $post -> id,'user_id' => Auth::user()->id]) }}", {
                             content: this.newComment,
                         })
                         .then(response => {

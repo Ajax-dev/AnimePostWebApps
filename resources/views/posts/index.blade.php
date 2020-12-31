@@ -19,6 +19,11 @@
                             <a href="{{ route('posts.show', ['id' => $post -> id]) }}">
                                 {{ $post -> name }}</a>
                         </div>
+                        @if(Auth::user())
+                            @if ($post->user->id == Auth::user()->id)
+                                <a href="{{ route('posts.edit', ['id' => $post->id]) }}" > Edit Post </a>
+                            @endif
+                        @endif
                     @endforeach
                 </div>
 

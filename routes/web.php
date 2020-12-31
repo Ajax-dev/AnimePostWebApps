@@ -27,6 +27,8 @@ Route::get('posts', 'PostController@index')->name('posts.index');
 Route::get('posts/create', 'PostController@create')->name('posts.create')->middleware('auth');
 Route::post('posts', 'PostController@store')->name('posts.store')->middleware('auth');
 Route::get('posts/{id}', 'PostController@show')->name('posts.show');
+Route::get('posts/edit/{id}', 'PostController@edit') -> name('posts.edit') -> middleware('auth');
+Route::put('posts/{id}/update', 'PostController@update') -> name('posts.update') -> middleware('auth');
 
 
 

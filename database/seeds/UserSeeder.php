@@ -13,10 +13,31 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        //Generate 7 users
+
+        $admin = Role::where('role', 'Admin')->first();
+//        //Some fake data as example
+//        $Admin = User::create([
+//            'name' => '',
+//            'email' => 'weebking@gmail.com',
+//            'password' => Hash::make('Test1'),
+//            'email_verified_at' => now(),
+//            'remember_token' => Str::random(10),
+//        ]);
+        $AdminT = new User;
+
+        $AdminT -> name = "Admin Test";
+        $AdminT -> email = "weebking@gmail.com";
+        $AdminT -> password = Hash::make('admin');
+        $AdminT -> email_verified_at = now();
+        $AdminT -> remember_token = "Str::random(10)";
+        $AdminT -> save();
+        $AdminT->roles()->attach($admin);
+
+        //Generate 3 users
         factory(App\User::class, 3)->create()->each(function ($role) {
+            $standard = Role::where('role', 'User')->first();
             $role->save();
-            $role->roles()->attach(rand(1,4));
+            $role->roles()->attach($standard);
         });
     }
 }
