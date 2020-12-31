@@ -19,6 +19,11 @@ class PostController extends Controller
         return view('posts.index', ['posts' => $posts]);
     }
 
+    public function apiIndex($id) {
+        $posts = Post::find($id) -> comments;
+        return $posts;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -46,7 +51,6 @@ class PostController extends Controller
             'status' => 'required|max:30',
         ]);
         $a = new Post;
-        $a->imageable = $validatedData['image'];
         $a->name = $validatedData['name'];
         $a->genre = $validatedData['genre'];
         $a->episodes = $validatedData['episodes'];
@@ -54,7 +58,6 @@ class PostController extends Controller
         $a->status = $validatedData['status'];
         $a->user_id = auth()->id();
         $a->save();
-        $b->save();
 
         session()->flash('message', 'The Anime Post was created.');
         return redirect()->route('posts.index');

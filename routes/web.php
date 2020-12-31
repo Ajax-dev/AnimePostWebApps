@@ -36,6 +36,7 @@ Route::get('posts/comment/{id}', 'CommentController@edit') -> name('comments.edi
 
 Route::put('posts/comment/{id}/update', 'CommentController@update') -> name('comments.update') -> middleware('auth');
 
+
 Auth::routes();
 
 Route::get('/home', 'PostController@index')->name('home');

@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('posts/{id}', 'PostController@apiIndex')->name('api.posts.index');
+Route::get('comments/{id}', 'CommentController@apiIndex')->name('api.comments.index');
+Route::post('comments/{post_id}/{user_id}', 'CommentController@apiStore') -> name('api.comments.store');

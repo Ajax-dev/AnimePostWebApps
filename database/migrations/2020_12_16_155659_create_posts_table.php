@@ -25,6 +25,7 @@ class CreatePostsTable extends Migration
 
             $table->foreignId('user_id')->constrained()->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');
+
         });
     }
 

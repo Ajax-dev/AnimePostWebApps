@@ -16,7 +16,29 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        return view('comments.index');
+    }
+
+    public function apiIndex($id) {
+        $posts = Post::find($id) -> comments;
+        return $posts;
+    }
+
+    public function apiStore(Request $request, $post_id, $user_id)
+    {
+        $validatedData = $request -> validate([
+            'content' => 'required|max:255',
+        ]);
+//        $posts = Post::findOrFail($request->post_id);
+        $a = new Comment;
+        $a->content = $validatedData['content'];
+        $a->post_id = $post_id;
+        $a->user_id = $user_id;
+        $a->save();
+
+        session()->flash('message', 'Comment was successfully created!');
+//        return redirect()->route('posts.show', $posts->id);
+        return $a;
     }
 
     /**
