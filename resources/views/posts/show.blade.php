@@ -11,18 +11,18 @@
     <div class="page-header">
         Anime Post
     </div>
-
-    <div class="card-body">
+    <div class="card-body" style="justify-content: flex-start">
         <ul>
             <li>
                 @isset( $post -> image)
-                    <img src="{{ $post -> image -> url }}" alt="Image from user {{ $post -> user -> name }}" height="400">
+                    <img src="{{ $post -> image -> url }}" alt="Image from user {{ $post -> user -> name }}" height="auto" width="400">
                 @else
                     <div class="no-img">
                         This user has not posted an image
                     </div>
                 @endisset
             </li>
+            <br>
             <li> Name: {{ $post-> name }} </li>
             <li> Genre: {{ $post-> genre }} </li>
             <li> Episodes: {{ $post-> episodes}} </li>
@@ -42,17 +42,7 @@
         </ul>
         <div class="card-subtitle2"> Comments: </div>
             <div id ="root">
-{{--                <ul>--}}
-{{--                    <li v-for="comment in comments">@{{ comment.content }} Posted by: @{{ comment.user }}</li>--}}
-
-{{--                            @if(Auth::user())--}}
-{{--                                @if ($comment->user->id == Auth::user()->id)--}}
-{{--                                    <a href="{{ route('comments.edit', ['id' => $comment->id]) }}" > Edit Comment </a>--}}
-{{--                                @endif--}}
-{{--                            @endif--}}
-
-{{--                </ul>--}}
-{{--                <li>--}}
+                <li>
                 @foreach ($post -> comments as $comment)
                     <p> {{ $comment-> content }}
 {{--                    Check if user is logged in before allowing edit--}}
@@ -75,18 +65,11 @@
                         <input type="text" id="input" v-model="newComment">
                     </p>
                     <button @click="addComment" onClick="window.location.reload();">Submit</button>
+                @else
+                    <p style="color:red">Login to post a comment!</p>
                 @endif
             </div>
             <li>
-{{--                <form method="POST" action="{{ route('comments.store') }}">--}}
-{{--                    @csrf--}}
-{{--                    <p> New Comment: <input type="text" name="content"--}}
-{{--                                            value="{{ old('content') }}"></p>--}}
-{{--                    <input type="hidden" name="post_id" value="{{ $post->id }}">--}}
-{{--                    <input type="submit" value="Submit">--}}
-{{--                </form>--}}
-
-{{--            </div>--}}
         <script>
             var app = new Vue({
                 el: "#root",
@@ -107,7 +90,7 @@
                 },
                 methods : {
                     addComment: function() {
-                        axios.post("{{ route('api.comments.store', ['post_id' => $post -> id,'user_id' => Auth::user()->id]) }}", {
+                        axios.post("{{ route('api.comments.store', ['post_id' => $post -> id,'user_id' => Auth::user() ? id : 0]) }}", {
                             content: this.newComment,
                         })
                         .then(response => {

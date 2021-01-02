@@ -26,6 +26,8 @@ body {
 
 .card-footer {
     border-top: 0px;
+
+    position: center;
 }
 
 .card-body {
@@ -44,9 +46,9 @@ body {
 
     text-align: center;
 
-    height: 700px;
+    height: 800px;
 
-    width: 700px;
+    width: 800px;
 
     position: absolute;
 
@@ -56,7 +58,7 @@ body {
 
     top: 50%;
 
-    border: 10px solid rgba(255,255,255,.65);
+    border: 5px solid rgba(255,255,255,.65);
 
 }
 
@@ -90,6 +92,10 @@ body {
 
 .li-v {
     list-style-type: none;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
 
     display: block;
 }

@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(3);
+        $posts = Post::orderBy('created_at', 'desc')->paginate(5);
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -77,7 +77,9 @@ class PostController extends Controller
 
 
         $a->save();
-        $a->image()->save($image);
+        if($request->file('image')) {
+            $a->image()->save($image);
+        }
         session()->flash('message', 'The Anime Post was created.');
         return redirect()->route('posts.index');
     }
