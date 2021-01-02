@@ -53,7 +53,7 @@ class PostController extends Controller
 
 //        dd(request()->all());
         $user_id = auth()->id();
-        dd($user_id);
+//        dd($user_id);
         $image = new Image;
         $a = new Post;
         if ($request->file('image') && $user_id != null) {

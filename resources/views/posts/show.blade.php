@@ -10,12 +10,14 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <div class="page-header">
         Anime Post
+
     </div>
     <div class="card-body" style="justify-content: flex-start">
+        <a href="{{ route('posts.index') }}" > Home </a>
         <ul>
             <li>
                 @isset( $post -> image)
-                    <img src="{{ $post -> image -> url }}" alt="Image from user {{ $post -> user -> name }}" height="auto" width="400">
+                    <img src="{{ $post -> image -> url }}" alt="Image from user {{ $post -> user -> name }}" height="auto" width="300">
                 @else
                     <div class="no-img">
                         This user has not posted an image
@@ -41,7 +43,7 @@
             )
         </ul>
         <div class="card-subtitle2"> Comments: </div>
-            <div id ="root">
+            <div style="overflow:auto;width:400px;">
                 @foreach ($post -> comments as $comment)
                     <p> {{ $comment -> content }}
 {{--                    Check if user is logged in before allowing edit--}}
@@ -57,7 +59,8 @@
                     </p>
                     <br>
                 @endforeach
-                    Comment here
+            </div>
+            <div id ="root">
                 @csrf
                 @if( Auth::user())
                     <p>New Comment:
@@ -69,7 +72,22 @@
                 @endif
             </div>
             <li>
+        <script src="//js.pusher.com/3.1/pusher.min.js"></script>
         <script>
+            // Initiate the Pusher JS library
+            var pusher = new Pusher('7d151fa5f084c856ec41', {
+                encrypted: true,
+                cluster: 'eu',
+            });
+
+            // Subscribe to the channel we specified in our Laravel Event
+            var channel = pusher.subscribe('comment.received');
+
+            // Bind a function to a Event (the full Laravel class)
+            channel.bind('App\\Events\\CommentPosted', function(data) {
+                // this is called when the event notification is received...
+            });
+
             var app = new Vue({
                 el: "#root",
                 data: {
@@ -108,7 +126,6 @@
 
 
         </script>
-        <a href="{{ route('posts.index') }}" > Home </a>
         </div>
     </body>
 @endsection

@@ -7,6 +7,8 @@ use App\Post;
 use App\User;
 use App\Comment;
 use Auth;
+use App\Events\CommentPosted;
+use App\Notifications\UserCommented;
 
 class CommentController extends Controller
 {
@@ -37,6 +39,9 @@ class CommentController extends Controller
         $a->post_id = $post_id;
         $a->user_id = $user_id;
         $a->save();
+
+        $a->post->user->notify(new UserCommented($a));
+        event(new CommentPosted($a));
 
         session()->flash('message', 'Comment was successfully created!');
 //        return redirect()->route('posts.show', $posts->id);
