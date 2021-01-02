@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\User;
 use App\Comment;
+use Auth;
 
 class CommentController extends Controller
 {
@@ -21,6 +22,7 @@ class CommentController extends Controller
 
     public function apiIndex($id) {
         $posts = Post::find($id) -> comments;
+
         return $posts;
     }
 

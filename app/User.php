@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\Comment as EmailComment;
 
 class User extends Authenticatable
 {
@@ -48,6 +49,9 @@ class User extends Authenticatable
         return $this -> hasMany('App\Comment');
     }
 
+    public function notify($notification) {
+        return new EmailComment($notification);
+    }
     /**
      * Get the user's image.
      */

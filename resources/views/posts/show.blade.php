@@ -42,12 +42,11 @@
         </ul>
         <div class="card-subtitle2"> Comments: </div>
             <div id ="root">
-                <li>
                 @foreach ($post -> comments as $comment)
-                    <p> {{ $comment-> content }}
+                    <p> {{ $comment -> content }}
 {{--                    Check if user is logged in before allowing edit--}}
                     @if(Auth::user())
-                        @if ($comment->user->id == Auth::user()->id)
+                        @if ($comment->user->id == Auth::user()->id || auth() -> user() -> roles() -> firstWhere('role','Admin'))
                             <a href="{{ route('comments.edit', ['id' => $comment->id]) }}" > Edit Comment </a>
                         @endif
                     @endif
@@ -58,7 +57,7 @@
                     </p>
                     <br>
                 @endforeach
-                 </li>
+                    Comment here
                 @csrf
                 @if( Auth::user())
                     <p>New Comment:
@@ -90,7 +89,7 @@
                 },
                 methods : {
                     addComment: function() {
-                        axios.post("{{ route('api.comments.store', ['post_id' => $post -> id,'user_id' => Auth::user() ? id : 0]) }}", {
+                        axios.post("{{ route('api.comments.store', ['post_id' => $post -> id, 'user_id' => Auth::user() ? Auth::user()->id : 0]) }}", {
                             content: this.newComment,
                         })
                         .then(response => {
