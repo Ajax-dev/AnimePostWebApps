@@ -83,10 +83,7 @@
             // Subscribe to the channel we specified in our Laravel Event
             var channel = pusher.subscribe('comment.received');
 
-            // Bind a function to a Event (the full Laravel class)
-            channel.bind('App\\Events\\CommentPosted', function(data) {
-                // this is called when the event notification is received...
-            });
+
 
             var app = new Vue({
                 el: "#root",
@@ -115,7 +112,11 @@
                             // handle success
                             this.comments.push(response.data);
                             this.newComment = '';
-
+                            // Bind a function to a Event (the full Laravel class)
+                            channel.bind('App\\Events\\CommentPosted', function(data) {
+                                // this is called when the event notification is received...
+                                channel.trigger('comment.received')
+                            });
                         })
                         .catch( error => {
                             console.log("ERRRR:: ",error.response);

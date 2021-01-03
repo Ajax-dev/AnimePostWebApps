@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Image;
+use App\Tag;
 
 class PostController extends Controller
 {
@@ -63,7 +64,7 @@ class PostController extends Controller
             $path = $request->file('image')->storeAs('userImages', $imageName, 'public');
             $image->name = $imageName;
             $image->url = '/storage/'.$path;
-            $image->imageable_id = 10;
+            $image->imageable_id = $user_id + $a->id;
             $image->imageable_type = $imagePath->getClientMimeType();
 //            dd($image);
             $image -> save();
@@ -76,8 +77,13 @@ class PostController extends Controller
         $a->user_id = $user_id;
 //        dd($image);
 
-
+        $randomTag1 = Tag::inRandomOrder()-> first();
+        $randomTag2 = Tag::inRandomOrder()-> first();
+        $randomTag3 = Tag::inRandomOrder()-> first();
         $a->save();
+        $a -> tags() -> attach($randomTag1);
+        $a -> tags() -> attach($randomTag2);
+        $a -> tags() -> attach($randomTag3);
         if($request->file('image')) {
             $a->image()->save($image);
         }
@@ -120,7 +126,7 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request -> validate([
-            'image' => 'nullable|image',
+            'image' => 'nullable|image|max:2048',
             'name' => 'required|max:100',
             'genre' => '',
             'episodes' => 'required|numeric',
@@ -135,6 +141,7 @@ class PostController extends Controller
         $post->status = $validatedData['status'];
         $post->user_id = auth()->id();
         $post->save();
+
 
         session()->flash('message', 'The Anime Post was edited.');
         return redirect()->route('posts.show', $post->id);

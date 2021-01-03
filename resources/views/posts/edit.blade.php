@@ -9,13 +9,17 @@
     <div class="card-header">
     </div>
     <div class="card-body">
-        <form method="POST" action="{{ route('posts.update', ['id' => $post-> id]) }}">
+        <form method="POST" action="{{ route('posts.update', ['id' => $post-> id]) }}" enctype="multipart/form-data">
             {{--@csrf adds security and middleware to html form --}}
             @csrf
             @method('PUT')
-            <p> Image: <input type="file" name="name" id="image"
-                              value="{{ old('image') }}"
-                              width="48" height="48"></p>
+            <div class="form-group row">
+                <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('Image') }}</label>
+
+                <div class="col-md-6">
+                    <input id="image" type="file" class="form-control" name="image" value="{{ old('image') }}">
+                </div>
+            </div>
             <div class="form-group row">
                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
